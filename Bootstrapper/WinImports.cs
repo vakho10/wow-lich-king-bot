@@ -79,14 +79,6 @@ namespace Bootstrapper
             public int dwThreadId;
         }
 
-        [StructLayout(LayoutKind.Sequential)]
-        internal struct SECURITY_ATTRIBUTES
-        {
-            public int nLength;
-            public IntPtr lpSecurityDescriptor;
-            public int bInheritHandle;
-        }
-
         /*
          * Methods
          */
@@ -96,19 +88,19 @@ namespace Bootstrapper
         internal static extern bool CreateProcess(
            string lpApplicationName,
            string lpCommandLine,
-           ref SECURITY_ATTRIBUTES lpProcessAttributes,
-           ref SECURITY_ATTRIBUTES lpThreadAttributes,
+           IntPtr lpProcessAttributes,
+           IntPtr lpThreadAttributes,
            bool bInheritHandles,
            uint dwCreationFlags,
            IntPtr lpEnvironment,
            string lpCurrentDirectory,
-           [In] ref STARTUPINFO lpStartupInfo,
+           ref STARTUPINFO lpStartupInfo,
            out PROCESS_INFORMATION lpProcessInformation);
 
         // VirtualAllocEx
         [DllImport("kernel32.dll", SetLastError = true, ExactSpelling = true)]
         internal static extern IntPtr VirtualAllocEx(IntPtr hProcess, IntPtr lpAddress,
-            uint dwSize, AllocationType flAllocationType, MemoryProtection flProtect);
+            int dwSize, AllocationType flAllocationType, MemoryProtection flProtect);
 
         // WriteProcessMemory
         [DllImport("kernel32.dll", SetLastError = true)]

@@ -1,6 +1,7 @@
 // dllmain.cpp : Defines the entry point for the DLL application.
 #include "stdafx.h"
 
+#include <Windows.h>
 #include <metahost.h>
 #include <mscoree.h>
 #pragma comment(lib, "mscoree.lib")
